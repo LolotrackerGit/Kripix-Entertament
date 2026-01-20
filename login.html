@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso - Kripix</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Courier+Prime&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-grid"></div>
+
+    <nav>
+        <div class="logo-text"><a href="index.html">KRIPIX</a></div>
+        <a href="index.html" class="back-link">← TORNA ALLA HOME</a>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h2>ACCESSO</h2>
+            </div>
+
+            <form class="terminal-form" id="loginForm">
+                <div class="input-group">
+                    <label>USERNAME</label>
+                    <input type="text" id="usernameInput" placeholder="Inserire ID..." required autocomplete="off">
+                    <!-- Rimosso il div di errore specifico qui, useremo quello sotto -->
+                </div>
+
+                <div class="input-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="passwordInput" placeholder="••••••••" required>
+                    <div class="validation-msg" id="err-login"></div> <!-- Unico messaggio di errore -->
+                </div>
+
+                <div class="form-actions">
+                    <label class="checkbox-container">
+                        <input type="checkbox" checked> Rimani connesso
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-gold full-width glow-effect">VERIFICA CREDENZIALI</button>
+            </form>
+
+            <div class="login-footer">
+                <p>Non possiedi un Kripix ID?</p>
+                <a href="register.html" class="register-link">CREA NUOVO ACCOUNT</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset Grafico (Pulisce tutto il rosso)
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            document.querySelectorAll('.validation-msg').forEach(el => el.style.display = 'none');
+
+            const userInput = document.getElementById('usernameInput');
+            const passInput = document.getElementById('passwordInput');
+            const username = userInput.value.trim();
+            const password = passInput.value;
+
+            // 1. Recupera il Database
+            const userDB = JSON.parse(localStorage.getItem('kripix_database')) || [];
+
+            // 2. Cerca l'utente
+            const foundUser = userDB.find(u => u.username.toLowerCase() === username.toLowerCase());
+
+            // 3. CONTROLLO UNICO (Sicurezza aumentata)
+            // Se l'utente NON esiste OPPURE la password è sbagliata -> Stesso Errore
+            if (!foundUser || foundUser.password !== password) {
+                
+                // Illuminiamo di rosso ENTRAMBI i campi per non dare indizi
+                userInput.classList.add('input-error');
+                passInput.classList.add('input-error');
+                
+                // Mostriamo il messaggio generico sotto la password
+                const msg = document.getElementById('err-login');
+                msg.innerText = '>> ERRORE: CREDENZIALI NON VALIDE [ACCESS DENIED]';
+                msg.style.display = 'block';
+                
+                // Animazione vibrazione
+                passInput.style.animation = 'none';
+                passInput.offsetHeight; 
+                passInput.style.animation = 'shake 0.3s';
+                return;
+            }
+
+            // CASO 4: TUTTO OK!
+            const btn = this.querySelector('button');
+            btn.innerHTML = 'ACCESSO CONSENTITO';
+            btn.style.background = '#4caf50';
+            btn.style.color = 'black';
+            btn.style.borderColor = '#4caf50';
+
+            // Salva sessione corrente
+            localStorage.setItem('kripix_user', foundUser.username);
+            localStorage.setItem('kripix_color', foundUser.color);
+            
+            // Gestione dei giochi (Recupera se l'utente aveva comprato il gioco)
+            // Nota: Qui recuperiamo la lista giochi dal database e la mettiamo nella sessione
+            if(foundUser.games && foundUser.games.includes('harrow')) {
+                localStorage.setItem('owned_game_harrow', 'true');
+            } else {
+                localStorage.removeItem('owned_game_harrow');
+            }
+
+            setTimeout(() => {
+                window.location.href = 'index.html'; 
+            }, 1000);
+        });
+
+        // Pulisci errore mentre scrivi (su entrambi i campi)
+        document.querySelectorAll('input').forEach(i => i.addEventListener('input', function(){
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            document.getElementById('err-login').style.display = 'none';
+        }));
+    </script>
+</body>
+</html>

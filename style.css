@@ -1,0 +1,711 @@
+/* --- CONFIGURAZIONE E COLORI --- */
+:root {
+    --bg-main: #05070a;       /* Nero bluastro */
+    --bg-darker: #020202;     /* Nero profondo */
+    --text-main: #e8e6d9;     /* Avorio */
+    --text-muted: #888;       /* Grigio */
+    --accent-gold: #e3c66c;   /* Oro Pallido */
+    --accent-red: #8b2323;    /* Rosso Ruggine */
+    --grid-color: rgba(255, 255, 255, 0.03);
+}
+
+html { scroll-behavior: smooth; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Sfondo Griglia */
+.background-grid {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle, black 40%, transparent 100%);
+}
+
+/* --- NAVIGAZIONE --- */
+nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 5%; width: 100%; position: absolute; top: 0; z-index: 10;
+}
+.logo-text { font-weight: 900; letter-spacing: 2px; color: var(--text-main); }
+.logo-text a { text-decoration: none; color: inherit; }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; transition: 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent-gold); }
+
+/* --- HERO SECTION --- */
+.hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+
+.hero-content {
+    position: relative; 
+    padding: 60px; 
+    display: inline-block;
+}
+
+.brand-title { font-size: 5rem; font-weight: 900; letter-spacing: 10px; line-height: 1; margin: 0; }
+.brand-subtitle { font-size: 1.5rem; font-weight: 300; color: var(--accent-red); letter-spacing: 8px; margin-bottom: 20px; margin-top: -10px; }
+.tagline { font-family: 'Courier Prime', monospace; opacity: 0.7; margin-bottom: 40px; }
+
+/* --- BOTTONI --- */
+.btn-container { display: flex; gap: 20px; justify-content: center; }
+
+.btn-gold {
+    display: inline-block; padding: 15px 35px;
+    border: 1px solid var(--accent-gold); color: var(--accent-gold);
+    text-decoration: none; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+    transition: 0.3s; background: transparent; cursor: pointer;
+}
+.btn-gold:hover { background: var(--accent-gold); color: var(--bg-main); box-shadow: 0 0 15px rgba(227, 198, 108, 0.3); }
+
+.btn-steam {
+    display: inline-block; padding: 15px 30px; background-color: #171a21; color: white;
+    text-decoration: none; font-weight: bold; border-radius: 2px; transition: 0.3s; width: 100%; text-align: center;
+}
+.btn-steam:hover { background-color: #2a475e; transform: translateY(-2px); }
+
+.btn-outline {
+    display: inline-block; padding: 15px 30px; border: 1px solid var(--text-muted); color: var(--text-muted);
+    text-decoration: none; font-weight: bold; transition: 0.3s;
+}
+.btn-outline:hover { border-color: var(--text-main); color: var(--text-main); }
+
+
+/* --- STILI PAGINE INTERNE --- */
+.page-header {
+    padding: 150px 5% 50px;
+    background: linear-gradient(to bottom, #0a0a0a, transparent);
+    text-align: center;
+}
+.page-header h1 { font-size: 3rem; letter-spacing: 5px; color: var(--accent-gold); text-transform: uppercase; }
+
+.section-padding { padding: 100px 5%; }
+.bg-darker { background-color: var(--bg-darker); border-top: 1px solid #111; border-bottom: 1px solid #111; }
+.container { max-width: 1200px; margin: 0 auto; }
+.section-header { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 50px; border-left: 4px solid var(--accent-red); padding-left: 20px; }
+
+/* Progetti */
+.project-card { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; margin-bottom: 100px; }
+.poster-placeholder {
+    width: 100%; aspect-ratio: 2/3; background: #0a0a0a; border: 1px solid #333;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    color: #333; font-weight: bold; font-size: 1.5rem;
+}
+.project-title { font-size: 3rem; line-height: 1; margin-bottom: 10px; }
+.project-meta { color: var(--accent-gold); font-family: 'Courier Prime'; margin-bottom: 20px; font-size: 0.9rem; }
+.project-desc { opacity: 0.8; margin-bottom: 30px; font-size: 1.1rem; }
+
+/* Acquisto */
+.purchase-options { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; margin-top: 30px; align-items: end; }
+.purchase-card { background: rgba(255, 255, 255, 0.03); border: 1px solid #333; padding: 20px; border-radius: 4px; position: relative; transition: 0.3s; }
+.steam-option:hover { border-color: #2a475e; background: rgba(42, 71, 94, 0.2); }
+.kripix-option { background: rgba(227, 198, 108, 0.05); border: 1px solid var(--accent-gold); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+.kripix-option:hover { box-shadow: 0 0 30px rgba(227, 198, 108, 0.15); transform: translateY(-5px); }
+.best-value-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent-gold); color: var(--bg-darker); font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 2px; text-transform: uppercase; }
+.option-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-family: 'Courier Prime'; }
+.platform-icon { font-weight: bold; font-size: 0.9rem; opacity: 0.7; }
+.price { font-size: 1.4rem; font-weight: bold; color: var(--text-main); }
+.option-desc { font-size: 0.9rem; margin-bottom: 20px; line-height: 1.4; opacity: 0.8; }
+.full-width { width: 100%; text-align: center; }
+.drm-note { font-size: 0.7rem; color: #666; text-align: center; margin-top: 10px; }
+
+/* Studio */
+.studio-intro { font-size: 1.2rem; max-width: 800px; margin-bottom: 50px; opacity: 0.9; }
+.pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+.pillar-card { background: rgba(255,255,255,0.02); padding: 30px; border: 1px solid #222; transition: 0.3s; }
+.pillar-card:hover { border-color: var(--accent-red); transform: translateY(-5px); }
+.pillar-card h4 { color: var(--accent-gold); margin-bottom: 15px; font-size: 1.2rem; }
+.pillar-card p { font-size: 0.9rem; opacity: 0.7; }
+
+/* Contatti */
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+.contact-links { list-style: none; margin-top: 30px; }
+.contact-links li { margin-bottom: 15px; }
+.contact-links a { color: var(--text-main); text-decoration: none; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 5px; transition: 0.3s; }
+.contact-links a:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
+.contact-form .form-group { margin-bottom: 20px; }
+.contact-form label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: var(--accent-gold); font-family: 'Courier Prime'; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 15px; background: #0a0a0a; border: 1px solid #333; color: white; font-family: 'Montserrat'; font-size: 1rem; }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--accent-gold); }
+
+/* Footer */
+footer { text-align: center; padding: 40px; font-size: 0.8rem; opacity: 0.5; margin-top: 50px; }
+
+/* --- MENU HAMBURGER STILI (Nuovi) --- */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-main);
+    transition: 0.3s;
+}
+
+/* Animazione Hamburger -> X */
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+
+/* --- MOBILE RESPONSIVE (Aggiornato) --- */
+@media (max-width: 768px) {
+    /* Mostra l'hamburger */
+    .hamburger { display: flex; }
+
+    /* Nascondi il menu normale e stilarlo come tendina */
+    .nav-menu {
+        position: fixed;
+        left: -100%; /* Nascosto fuori schermo a sinistra */
+        top: 70px; /* Altezza della navbar */
+        flex-direction: column;
+        background-color: rgba(5, 7, 10, 0.98); /* Sfondo quasi nero */
+        width: 100%;
+        text-align: center;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animazione fluida */
+        padding: 40px 0;
+        border-bottom: 1px solid var(--accent-gold);
+        gap: 30px;
+        z-index: 99;
+    }
+
+    /* Quando il menu è aperto (classe aggiunta da JS) */
+    .nav-menu.active {
+        left: 0; /* Entra nello schermo */
+    }
+
+    .nav-menu li { margin: 15px 0; }
+    
+    /* Aggiusta testi giganti su mobile */
+    .brand-title { font-size: 3rem; }
+    .project-card, .contact-layout, .purchase-options { grid-template-columns: 1fr; }
+    .live-brush { display: none; }
+}
+.btn-launcher {
+    border: 1px solid var(--text-muted);
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+.btn-launcher:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold) !important;
+    box-shadow: 0 0 10px rgba(227, 198, 108, 0.2);
+}
+
+/* --- PAGINA DOWNLOAD --- */
+.download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.os-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid #333;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 4px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.os-card:hover { border-color: var(--text-muted); background: rgba(255,255,255,0.05); }
+
+/* Icone OS */
+.os-icon svg {
+    width: 60px; height: 60px;
+    margin-bottom: 20px;
+    fill: var(--text-muted);
+    transition: 0.3s;
+}
+
+.os-card h3 { font-size: 1.5rem; margin-bottom: 5px; color: var(--text-main); }
+.os-specs { font-size: 0.9rem; color: var(--text-muted); font-family: 'Courier Prime'; margin-bottom: 30px; }
+
+/* --- STILE "HIGHLIGHTED" (Quando l'OS è rilevato) --- */
+.os-card.highlighted {
+    border: 2px solid var(--accent-gold);
+    background: rgba(227, 198, 108, 0.05);
+    transform: scale(1.05); /* Leggermente più grande */
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    z-index: 10;
+}
+
+.os-card.highlighted .os-icon svg { fill: var(--accent-gold); }
+
+/* Il Tag "Rilevato" */
+.os-tag {
+    display: none; /* Nascosto di default */
+    position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent-gold); color: var(--bg-darker);
+    font-size: 0.7rem; font-weight: 900; padding: 4px 15px;
+    border-radius: 2px; text-transform: uppercase; letter-spacing: 1px;
+}
+
+.os-card.highlighted .os-tag { display: block; } /* Mostra solo se rilevato */
+
+/* --- FEATURES LAUNCHER --- */
+.launcher-features {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 30px; border-top: 1px solid #222; padding-top: 50px;
+}
+.feature-item { text-align: center; }
+.f-icon { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+.feature-item h4 { color: var(--accent-gold); margin-bottom: 10px; }
+.feature-item p { font-size: 0.9rem; opacity: 0.7; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .launcher-features { grid-template-columns: 1fr; }
+    .os-card.highlighted { transform: scale(1); } /* Niente zoom su mobile */
+}
+/* --- LOGIN / REGISTER PAGE --- */
+.login-container {
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+}
+
+.back-link {
+    color: var(--text-muted); text-decoration: none; font-size: 0.8rem; font-weight: bold;
+    font-family: 'Courier Prime'; transition: 0.3s;
+}
+.back-link:hover { color: var(--accent-gold); }
+
+.login-box {
+    width: 100%; max-width: 450px;
+    background: rgba(10, 10, 10, 0.95);
+    border: 1px solid #333;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+/* Bordo superiore dorato */
+.login-box::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+    background: var(--accent-gold);
+    box-shadow: 0 0 15px var(--accent-gold);
+}
+
+.login-header { text-align: center; margin-bottom: 40px; }
+.login-header h2 { font-size: 2rem; letter-spacing: 3px; margin-bottom: 5px; }
+.status-blink { 
+    color: #4caf50; font-family: 'Courier Prime'; font-size: 0.8rem; 
+    animation: blink 2s infinite; 
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* Input Stile Terminale */
+.input-group { margin-bottom: 25px; position: relative; }
+.input-group label {
+    display: block; font-family: 'Courier Prime'; font-size: 0.75rem; 
+    color: var(--accent-gold); margin-bottom: 8px; letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%; padding: 12px 15px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #333;
+    color: white; font-family: 'Montserrat'; font-size: 1rem;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    background: rgba(227, 198, 108, 0.05);
+    box-shadow: 0 0 10px rgba(227, 198, 108, 0.1);
+}
+
+/* Checkbox personalizzata */
+.form-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 30px; font-size: 0.85rem; color: var(--text-muted);
+}
+.forgot-pass { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+.forgot-pass:hover { color: var(--text-main); }
+
+.glow-effect { margin-top: 10px; }
+
+.login-footer {
+    margin-top: 30px; text-align: center; border-top: 1px solid #222; padding-top: 20px;
+    font-size: 0.9rem; color: var(--text-muted);
+}
+.register-link {
+    display: block; margin-top: 10px; color: var(--accent-gold); 
+    font-weight: bold; text-decoration: none; letter-spacing: 1px;
+}
+.register-link:hover { text-decoration: underline; }
+/* --- USER AVATAR & DROPDOWN --- */
+.nav-user-container {
+    position: relative;
+    display: flex; align-items: center;
+}
+
+.btn-login-nav {
+    color: var(--text-main); text-decoration: none; font-weight: bold; font-size: 0.9rem;
+    border: 1px solid transparent; padding: 5px 15px; transition: 0.3s;
+}
+.btn-login-nav:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
+
+/* Avatar Tondo */
+.user-avatar {
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    background-color: #555; /* Default, verrà sovrascritto da JS */
+    color: white;
+    font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.2s;
+    user-select: none;
+}
+.user-avatar:hover { border-color: var(--accent-gold); transform: scale(1.1); }
+
+/* Menu a Tendina (Dropdown) */
+/* --- STILI MENU UTENTE (FIX ESTETICO) --- */
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 60px; 
+    right: -10px; /* Allinea meglio con il bordo destro */
+    background-color: #080808; /* Sfondo quasi nero */
+    border: 1px solid #222;
+    width: 240px; /* Leggermente più largo */
+    border-top: 3px solid var(--accent-gold);
+    flex-direction: column;
+    z-index: 9999;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+    border-radius: 0 0 4px 4px;
+}
+
+.user-dropdown.show { display: flex; }
+
+/* Stile per il Nome Utente in alto */
+.user-header {
+    background-color: rgba(227, 198, 108, 0.05); /* Sfondo leggermente dorato */
+    padding: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.user-name {
+    display: block;
+    color: var(--accent-gold);
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.user-role {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+/* Link del menu */
+.user-dropdown a {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #ccc;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: 0.9rem;
+    text-align: left;
+    transition: 0.2s;
+}
+
+.user-dropdown a:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: white;
+    padding-left: 25px; /* Effetto scorrimento */
+    border-left: 3px solid var(--accent-gold); /* Linea dorata a sinistra */
+}
+
+/* Bottone Logout */
+.user-dropdown a#action-logout {
+    color: #ff5555;
+    border-bottom: none;
+}
+.user-dropdown a#action-logout:hover {
+    background: rgba(255, 85, 85, 0.1);
+    border-left-color: #ff5555;
+}
+
+/* Stile speciale per "ESCI" */
+.user-dropdown a#logout-btn { color: var(--accent-red); border-bottom: none; }
+.user-dropdown a#logout-btn:hover { background: rgba(139, 35, 35, 0.1); }
+/* --- AGGIORNAMENTO CSS PER MENU E LOGIN --- */
+
+/* Assicura che tutti i link nella navbar siano perfettamente allineati verticalmente */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    align-items: center; /* <--- QUESTO è il segreto per non averli storti */
+}
+
+/* Stile del link ACCEDI (ora identico agli altri) */
+.btn-login-nav {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+    border: none;    /* Nessun contorno */
+    padding: 0;      /* Nessun padding strano */
+    background: none;
+}
+
+.btn-login-nav:hover {
+    color: var(--accent-gold);
+}
+
+/* Container dell'Avatar e del Link Accedi */
+.nav-user-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%; /* Occupa l'altezza giusta */
+}
+
+/* Avatar Tondo (Per quando sei loggato) */
+.user-avatar {
+    width: 32px; height: 32px; /* Leggermente più piccolo per allinearsi meglio al testo */
+    border-radius: 50%;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+}
+.user-avatar:hover { 
+    box-shadow: 0 0 0 2px var(--accent-gold); /* Effetto hover elegante solo sull'avatar */
+}
+
+/* Menu a Tendina (Dropdown) - Resta uguale ma posizionato meglio */
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 150%; /* Scende un po' di più per non coprire l'avatar */
+    right: -10px; /* Allineato a destra */
+    background-color: var(--bg-darker);
+    border: 1px solid #333;
+    width: 200px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+    border-top: 2px solid var(--accent-gold);
+    flex-direction: column;
+    z-index: 1000;
+}
+.btn-outline {
+    display: inline-block; 
+    padding: 15px 30px; 
+    border: 1px solid #666; /* Colore bordo grigio come screenshot */
+    color: #888;            /* Testo grigio */
+    text-decoration: none; 
+    font-weight: 700;       /* Grassetto */
+    transition: 0.3s;
+    text-transform: uppercase; /* Forza maiuscolo */
+    font-family: 'Montserrat', sans-serif; /* Assicura stesso font */
+    font-size: 0.9rem;      /* Grandezza giusta */
+    letter-spacing: 1px;
+    
+    /* PROPRIETÀ SPECIFICHE PER RESETTARE IL TAG <BUTTON> */
+    background: transparent; 
+    cursor: pointer;
+    line-height: normal;
+}
+
+.btn-outline:hover { 
+    border-color: var(--text-main); /* Diventa bianco al passaggio */
+    color: var(--text-main);        /* Testo bianco */
+    background: rgba(255,255,255,0.05); /* Leggerissimo sfondo bianco */
+}
+/* --- VALIDAZIONE FORM STILE TERMINALE --- */
+
+/* Bordo rosso quando c'è errore */
+.input-error {
+    border-color: #ff5555 !important;
+    background: rgba(255, 85, 85, 0.05) !important;
+    animation: shake 0.3s ease-in-out;
+}
+
+/* Messaggio di errore sotto l'input */
+.validation-msg {
+    display: none; /* Nascosto di base */
+    color: #ff5555;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    margin-top: 5px;
+    margin-left: 2px;
+    font-weight: bold;
+}
+
+/* Animazione "scossa" per l'errore */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+/* --- STILI MODALI E MINI-DOWNLOAD --- */
+
+/* Sfondo Oscurato */
+.modal-overlay {
+    display: none;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Finestra Modale */
+.modal-box {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-top: 3px solid var(--accent-gold);
+    padding: 30px;
+    max-width: 700px; /* Più larga per far stare le due card */
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    position: relative;
+    animation: modalSlide 0.3s ease-out;
+}
+
+@keyframes modalSlide {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Griglia Mini Card (Win/Mac) */
+.mini-dl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+/* Stile Mini Card */
+.mini-os-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 4px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.mini-os-card:hover {
+    border-color: var(--accent-gold);
+    background: rgba(227, 198, 108, 0.05);
+    transform: translateY(-3px);
+}
+
+.mini-os-icon svg {
+    width: 40px; height: 40px; fill: #888; margin-bottom: 10px; transition: 0.3s;
+}
+.mini-os-card:hover svg { fill: var(--accent-gold); }
+
+.mini-os-title { font-weight: bold; color: #fff; margin-bottom: 5px; }
+.mini-os-spec { font-family: 'Courier Prime'; font-size: 0.7rem; color: #666; margin-bottom: 15px; }
+
+/* Mobile: Card una sotto l'altra */
+@media (max-width: 600px) {
+    .mini-dl-grid { grid-template-columns: 1fr; }
+}
+/* --- GALLERIA PROGETTI & LIGHTBOX --- */
+
+/* Griglia sotto il poster */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonne uguali */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Le Miniature (Thumbnails) */
+.gallery-thumb {
+    width: 100%;
+    aspect-ratio: 16/9; /* Formato panoramico */
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Per ora usiamo un placeholder visivo */
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: #555; font-family: 'Courier Prime';
+    overflow: hidden;
+}
+
+/* Effetto Hover sulle miniature */
+.gallery-thumb:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.gallery-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0.7; transition: 0.3s;
+}
+.gallery-thumb:hover img { opacity: 1; }
+
+
+/* --- LIGHTBOX (Visualizzatore a tutto schermo) --- */
+.lightbox-overlay {
+    display: none; /* Nascosto base */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95); /* Quasi nero totale */
+    z-index: 11000; /* Sopra a tutto, anche ai modali */
+    align-items: center; justify-content: center;
+    flex-direction: column;
+    animation: fadeIn 0.3s;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80vh;
+    border: 2px solid #333;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+.lightbox-caption {
+    margin-top: 15px;
+    color: var(--accent-gold);
+    font-family: 'Courier Prime';
+    letter-spacing: 2px;
+}
+
+.close-lightbox {
+    position: absolute; top: 20px; right: 30px;
+    font-size: 3rem; color: #666; cursor: pointer; transition: 0.3s;
+}
+.close-lightbox:hover { color: white; transform: rotate(90deg); }
+
+@keyframes fadeIn { from {opacity:0} to {opacity:1} }

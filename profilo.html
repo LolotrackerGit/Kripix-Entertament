@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo - Kripix</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Courier+Prime&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Specifico Profilo */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        /* Colonna Sinistra: ID CARD */
+        .id-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #333;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        .id-card::before {
+            content: 'CLASSIFIED';
+            position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            font-size: 0.6rem; letter-spacing: 3px; color: #444; font-family: 'Courier Prime';
+            border: 1px solid #444; padding: 2px 5px;
+        }
+
+        .big-avatar {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; font-weight: 900; color: white;
+            border: 4px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .agent-rank { color: var(--accent-gold); font-size: 0.9rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .agent-name { font-size: 1.8rem; font-weight: 900; color: white; margin-bottom: 20px; line-height: 1; }
+        
+        .stat-row {
+            display: flex; justify-content: space-between;
+            border-bottom: 1px solid #222; padding: 10px 0;
+            font-size: 0.9rem; font-family: 'Courier Prime';
+        }
+        .stat-row span:last-child { color: white; }
+
+        /* Colonna Destra: CONTENUTI */
+        .section-box { margin-bottom: 40px; }
+        .box-header { font-size: 1.2rem; border-left: 3px solid var(--accent-gold); padding-left: 15px; margin-bottom: 20px; color: white; }
+
+        /* Badges Grid */
+        .badges-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+        .badge-item {
+            background: #0f0f0f; border: 1px solid #333;
+            width: 100px; height: 100px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 4px; transition: 0.3s;
+            opacity: 0.5; /* Default spento */
+            cursor: help;
+        }
+        .badge-item.unlocked {
+            opacity: 1; border-color: var(--accent-gold);
+            background: rgba(227, 198, 108, 0.05);
+            box-shadow: 0 0 15px rgba(227, 198, 108, 0.1);
+        }
+        .badge-icon { font-size: 2rem; margin-bottom: 5px; }
+        .badge-name { font-size: 0.6rem; text-transform: uppercase; color: #888; text-align: center; }
+
+        /* Level Bar */
+        .level-container { margin-bottom: 30px; }
+        .level-info { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; color: #ccc; }
+        .progress-bar-bg { width: 100%; height: 10px; background: #222; border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent-gold); width: 0%; transition: width 1s ease-out; }
+
+        @media(max-width:768px) { .profile-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="background-grid"></div>
+
+    <nav>
+        <div class="logo-text"><a href="index.html">KRIPIX</a></div>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+        <ul class="nav-links nav-menu">
+            <li><a href="progetti.html">Progetti</a></li>
+            <li><a href="studio.html">Chi Siamo</a></li>
+            <li><a href="contatti.html">Contatti</a></li>
+            <li><a href="download.html" class="btn-launcher">Scarica App</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <h1>Il mio Profilo</h1>
+    </div>
+
+    <section class="section-padding">
+        <div class="container profile-layout">
+            
+            <!-- SINISTRA: ID CARD -->
+            <div class="id-card">
+                <div class="big-avatar" id="p-avatar">?</div>
+                <div class="agent-rank">LIVELLO 1</div>
+                <div class="agent-name" id="p-username">AGENTE</div>
+                
+                <div style="margin-top: 30px; text-align: left;">
+                    <div class="stat-row">
+                        <span style="color:#666">ID DATABASE</span>
+                        <span id="p-id-num">#0000</span>
+                    </div>
+                    <div class="stat-row">
+                        <span style="color:#666">STATO</span>
+                        <span style="color:#4caf50">ATTIVO</span>
+                    </div>
+                    <div class="stat-row">
+                        <span style="color:#666">GIOCHI</span>
+                        <span id="p-games-count">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span style="color:#666">DATA REG.</span>
+                        <span>2024</span>
+                    </div>
+                </div>
+                
+                <a href="impostazioni.html" class="btn-outline full-width" style="margin-top:30px; font-size:0.8rem;">MODIFICA DATI</a>
+            </div>
+
+            <!-- DESTRA: CONTENUTI -->
+            <div>
+                <!-- LIVELLO XP -->
+                <div class="section-box">
+                    <div class="level-container">
+                        <div class="level-info">
+                            <span>ESPERIENZA OPERATIVA</span>
+                            <span id="xp-text">0 / 100 XP</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-fill" id="xp-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BADGES -->
+                <div class="section-box">
+                    <h3 class="box-header">MEDAGLIERE & OBIETTIVI</h3>
+                    <div class="badges-grid">
+                        
+                        <!-- Badge 1: Registrazione (Sempre sbloccato) -->
+                        <div class="badge-item unlocked" title="Account creato con successo">
+                            <span class="badge-icon">🛡️</span>
+                            <span class="badge-name">RECLUTA</span>
+                        </div>
+
+                        <!-- Badge 2: Gioco Acquistato (Dinamico) -->
+                        <div class="badge-item" id="badge-investigator" title="Possiedi 'Il Filo del Dubbio'">
+                            <span class="badge-icon">🕵️</span>
+                            <span class="badge-name">DETECTIVE</span>
+                        </div>
+
+                        <!-- Badge 3: Beta Tester (Finto/Locked) -->
+                        <div class="badge-item" title="Partecipa a una Beta chiusa">
+                            <span class="badge-icon">🧪</span>
+                            <span class="badge-name">BETA TESTER</span>
+                        </div>
+
+                        <!-- Badge 4: Supporter (Finto/Locked) -->
+                        <div class="badge-item" title="Supporta lo studio">
+                            <span class="badge-icon">⭐</span>
+                            <span class="badge-name">GOLD MEMBER</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ATTIVITÀ RECENTI -->
+                <div class="section-box">
+                    <h3 class="box-header">LOG ATTIVITÀ RECENTI</h3>
+                    <div style="font-family: 'Courier Prime'; font-size: 0.85rem; color: #888;">
+                        <p style="margin-bottom: 10px;">> [OGGI] Accesso al terminale effettuato.</p>
+                        <p style="margin-bottom: 10px;" id="log-purchase" style="display:none">> [DATA] Acquisizione licenza "Harrow".</p>
+                        <p>> [SYSTEM] Profilo sincronizzato con il server.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer><p>&copy; 2024 Kripix Entertainment.</p></footer>
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Check Login
+            const user = localStorage.getItem('kripix_user');
+            if (!user) { window.location.href = 'login.html'; return; }
+
+            // 2. Popola Dati Base
+            const color = localStorage.getItem('kripix_color') || '#666';
+            
+            document.getElementById('p-username').innerText = user;
+            const avatar = document.getElementById('p-avatar');
+            avatar.innerText = user.charAt(0).toUpperCase();
+            avatar.style.backgroundColor = color;
+            avatar.style.borderColor = color;
+            avatar.style.boxShadow = `0 0 30px ${color}40`; // 40 è l'opacità hex
+
+            // ID Casuale finto basato sulla lunghezza del nome
+            document.getElementById('p-id-num').innerText = "#88" + user.length + "X";
+
+            // 3. Logica Gamification (XP e Giochi)
+            const hasHarrow = localStorage.getItem('owned_game_harrow');
+            const badgeInv = document.getElementById('badge-investigator');
+            const xpBar = document.getElementById('xp-bar');
+            const xpText = document.getElementById('xp-text');
+            const gamesCount = document.getElementById('p-games-count');
+            const logPurchase = document.getElementById('log-purchase');
+
+            if (hasHarrow) {
+                // UTENTE HA IL GIOCO
+                badgeInv.classList.add('unlocked'); // Sblocca medaglia
+                gamesCount.innerText = "1";
+                
+                // Livello 2
+                setTimeout(() => { 
+                    xpBar.style.width = "50%"; // Animazione
+                    xpText.innerText = "500 / 1000 XP (LIVELLO 2)";
+                    document.querySelector('.agent-rank').innerText = "AGENTE SUL CAMPO";
+                    document.querySelector('.agent-rank').style.color = "#4caf50";
+                }, 500);
+
+                // Mostra log acquisto
+                if(logPurchase) logPurchase.style.display = 'block';
+
+            } else {
+                // UTENTE BASE
+                setTimeout(() => { xpBar.style.width = "10%"; }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
