@@ -78,92 +78,122 @@
         </div>
     </div>
 
-    <footer><p>&copy; 2024 Kripix Entertainment.</p></footer>
+    <footer><p>&copy; 2026 Kripix Entertainment.</p></footer>
 
     <!-- Script Principale -->
     <script src="script.js"></script>
 
     <!-- Script Libreria & Modale -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Controllo Accesso
-            if (!localStorage.getItem('kripix_user')) {
-                window.location.href = 'login.html';
-                return;
-            }
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Controllo Accesso
+        if (!localStorage.getItem('kripix_user')) {
+            window.location.href = 'login.html';
+            return;
+        }
 
-            // Generazione Card Gioco
-            const hasHarrow = localStorage.getItem('owned_game_harrow');
-            const grid = document.getElementById('library-grid');
-            const emptyMsg = document.getElementById('empty-msg');
+        // Generazione Card Gioco
+        const hasHarrow = localStorage.getItem('owned_game_harrow');
+        const grid = document.getElementById('library-grid');
+        const emptyMsg = document.getElementById('empty-msg');
 
-            if (hasHarrow) {
-                // NOTA: Il bottone SCARICA ora chiama openDlModal()
-                const gameCard = `
-                    <div class="os-card highlighted" style="text-align:left; padding:0; overflow:hidden;">
-                        <div style="height:150px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; border-bottom:1px solid #333;">
-                            <span style="font-weight:900; letter-spacing:2px; font-size:1.5rem; text-align:center; padding:10px;">IL FILO DEL DUBBIO</span>
+        if (hasHarrow) {
+            const gameCard = `
+                <div class="os-card highlighted" style="text-align:left; padding:0; overflow:hidden;">
+                    <div style="height:150px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; border-bottom:1px solid #333; position:relative;">
+                         <span style="font-weight:900; letter-spacing:2px; font-size:1.5rem; color:#fff;">IL FILO DEL DUBBIO</span>
+                         
+                    </div>
+                    <div style="padding:25px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                            <span style="color:#4caf50; font-weight:bold; font-size:0.8rem; font-family:'Courier Prime';">● LICENZA ATTIVA</span>
+                            <span style="font-family:'Courier Prime'; font-size:0.8rem; color:#666;">Ver. 1.0.2</span>
                         </div>
-                        <div style="padding:25px;">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
-                                <span style="color:#4caf50; font-weight:bold; font-size:0.8rem;">● LICENZA ATTIVA</span>
-                                <span style="font-family:'Courier Prime'; font-size:0.8rem; color:#888;">Ver. 1.0.2</span>
-                            </div>
-                            <h3 style="font-size:1.2rem; margin-bottom:10px;">Deluxe Edition</h3>
-                            <p style="font-size:0.9rem; opacity:0.7; margin-bottom:25px;">
-                                Include Artbook Digitale e Soundtrack Originale.
-                            </p>
-                            <div style="display:flex; gap:10px;">
-                                <button class="btn-gold full-width" onclick="openDlModal()">SCARICA</button>
-                                <button class="btn-outline" style="padding:15px;" title="Copia Chiave Steam" onclick="alert('Chiave Copiata: KRPX-8821-X99Z')">🔑</button>
-                            </div>
+                        <h3 style="font-size:1.2rem; margin-bottom:10px;">Deluxe Edition</h3>
+                        <p style="font-size:0.9rem; opacity:0.7; margin-bottom:25px; line-height:1.4;">
+                            Include gioco completo, Artbook Digitale e Soundtrack Originale.
+                        </p>
+                        
+                        <!-- NOTA: Aggiunta classe 'btn-container-relative' qui sotto -->
+                        <div style="display:flex; gap:10px;" class="btn-container-relative">
+                            <button class="btn-gold full-width" onclick="openDlModal()">INSTALLA</button>
+                            
+                            <!-- Tasto Chiave con Nuova Funzione -->
+                            <button class="btn-outline" style="padding:0; width:55px; justify-content:center; font-size:1.2rem;" 
+                                    title="Copia Chiave Steam" 
+                                    onclick="copyKey(this, 'KRPX-8821-X99Z')">🔑</button>
                         </div>
                     </div>
-                `;
-                grid.innerHTML = gameCard;
-            } else {
-                emptyMsg.style.display = 'block';
-            }
-        });
-
-        // --- FUNZIONI MODALE ---
-        
-        function openDlModal() {
-            document.getElementById('dl-modal').style.display = 'flex';
+                </div>
+            `;
+            grid.innerHTML = gameCard;
+        } else {
+            emptyMsg.style.display = 'block';
         }
+    });
 
-        function closeDlModal() {
-            document.getElementById('dl-modal').style.display = 'none';
-        }
+    // --- NUOVA FUNZIONE COPIA CHIAVE ---
+    function copyKey(btn, key) {
+        // 1. Copia nella clipboard
+        navigator.clipboard.writeText(key).then(() => {
+            
+            // 2. Crea il tooltip
+            const container = btn.parentElement; // Il div che li contiene
+            
+            // Rimuovi eventuali tooltip vecchi per non sovrapporli
+            const oldTooltip = container.querySelector('.copy-tooltip');
+            if(oldTooltip) oldTooltip.remove();
 
-        // Chiudi se clicco fuori dalla box
-        document.getElementById('dl-modal').addEventListener('click', function(e) {
-            if (e.target === this) closeDlModal();
-        });
+            const tooltip = document.createElement('div');
+            tooltip.className = 'copy-tooltip';
+            tooltip.innerText = 'COPIATO NEL BUFFER';
+            
+            container.appendChild(tooltip);
 
-        function simulateDl(card, filename) {
-            const btn = card.querySelector('.btn-outline');
-            const originalText = btn.innerText;
-
-            btn.innerText = 'AVVIO...';
-            btn.style.color = 'var(--accent-gold)';
-            btn.style.borderColor = 'var(--accent-gold)';
-
+            // 3. Anima entrata (piccolo ritardo per permettere al CSS di agire)
             setTimeout(() => {
-                btn.innerText = 'SCARICANDO...';
-                // Qui partirebbe il download vero window.location.href = filename;
-                
+                tooltip.classList.add('show');
+            }, 10);
+
+            // 4. Rimuovi dopo 2 secondi
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+                setTimeout(() => tooltip.remove(), 300); // Aspetta la fine della transizione
+            }, 2000);
+
+        }).catch(err => {
+            console.error('Errore copia:', err);
+            alert("Errore nel copiare la chiave (Browser non supportato?)");
+        });
+    }
+
+    // --- FUNZIONI MODALE ---
+    function openDlModal() { document.getElementById('dl-modal').style.display = 'flex'; }
+    function closeDlModal() { document.getElementById('dl-modal').style.display = 'none'; }
+    
+    document.getElementById('dl-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeDlModal();
+    });
+
+    function simulateDl(card, filename) {
+        const btn = card.querySelector('.btn-outline');
+        const originalText = btn.innerText;
+        btn.innerText = 'AVVIO...';
+        btn.style.color = 'var(--accent-gold)';
+        btn.style.borderColor = 'var(--accent-gold)';
+        setTimeout(() => {
+            btn.innerText = 'SCARICANDO...';
+            setTimeout(() => {
+                btn.innerText = 'GRAZIE!';
                 setTimeout(() => {
-                    btn.innerText = 'GRAZIE!';
-                    setTimeout(() => {
-                        closeDlModal();
-                        btn.innerText = originalText; // Reset per la prossima volta
-                        btn.style.color = '#888';
-                        btn.style.borderColor = '#666';
-                    }, 1000);
-                }, 1500);
-            }, 800);
-        }
-    </script>
+                    closeDlModal();
+                    btn.innerText = originalText;
+                    btn.style.color = '#888'; 
+                    btn.style.borderColor = '#666';
+                }, 1000);
+            }, 1500);
+        }, 800);
+    }
+</script>
 </body>
 </html>
